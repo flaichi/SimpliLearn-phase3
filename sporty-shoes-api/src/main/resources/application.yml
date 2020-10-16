@@ -1,0 +1,18 @@
+spring:
+  jpa:    
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: false
+        format_sql: false 
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sporty_db?useUnicode=true&characterEncoding=utf8&useSSL=false&&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    platform: MYSQL
+    username: root
+    password: farouk
