@@ -20,11 +20,14 @@ import com.sportyshoes.entities.enumerations.TerrainEnum;
 import com.sportyshoes.entities.enumerations.TypeEnum;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "shoes")
 @Data @NoArgsConstructor
+@Getter @Setter  
 public class Shoe implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -42,8 +45,11 @@ public class Shoe implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
 	private BrandEnum brand;
+
+
 	
-	@Enumerated(EnumType.STRING)
+	
+	
 	private GenderEnum gender;
 	
 	@Enumerated(EnumType.STRING)
@@ -57,4 +63,9 @@ public class Shoe implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
 	private TypeEnum type;
+
+	public void setBrand(BrandEnum adidas) {
+		// TODO Auto-generated method stub
+		
+	}
 }

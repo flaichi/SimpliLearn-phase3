@@ -16,3 +16,4 @@ spring:
     platform: MYSQL
     username: root
     password: farouk
+  

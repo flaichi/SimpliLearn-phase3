@@ -25,9 +25,9 @@ public class SportyShoesApiApplication {
 	// uncomment this to put a shoe in the database
 	@Bean
 	CommandLineRunner start(ShoesRepository repo) {
-		return arg ->{
+		return (args) ->{
 			Shoe shoe = new Shoe();
-			shoe.
+
 			shoe.setBrand(BrandEnum.ADIDAS);
 			shoe.setColor(ColorEnum.BLACK);
 			shoe.setDescription("great running shoes for boys");
@@ -38,7 +38,12 @@ public class SportyShoesApiApplication {
 			shoe.setTerrain(TerrainEnum.ROAD);
 			shoe.setType(TypeEnum.RACING_SHOES);
 			
+			
+			
+			
+			
 			System.out.println(repo.save(shoe).getBrand());
+			 
 		};
 	}
 }
