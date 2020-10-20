@@ -16,4 +16,6 @@ spring:
     platform: MYSQL
     username: root
     password: farouk
+  server:
+  port : 8084
   
