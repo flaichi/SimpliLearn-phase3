@@ -23,11 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
+	// called by spring security - for web security application to use  user details service.
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userDetailsService).passwordEncoder(bcryptPasswordEncoder);
 	}
 	
+	// handle https engine when getting web requests
+	// trying to set oauth on one route
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();

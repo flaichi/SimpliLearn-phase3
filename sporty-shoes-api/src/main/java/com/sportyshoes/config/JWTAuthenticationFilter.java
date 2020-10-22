@@ -42,6 +42,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		}
 	}
 	
+	
+	// once user authentcated, it generates the token so access is possible.
 	@Override
 	public void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authResult.getPrincipal();
@@ -49,11 +51,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		authResult.getAuthorities().forEach(authority->{
 			roles.add(authority.getAuthority());
 		});
+		//setting  date and  time.
 		Date expiration = new Date();
 		Calendar c = Calendar.getInstance(); 
 		c.setTime(expiration); 
 		c.add(Calendar.DATE, SecurityUtils.TOKEN_VALIDITY);
 		expiration = c.getTime();
+		// building Toekn  with spefic paramteres: date, roles,expry and then signed.
 		final String jwt = JWT.create()
 							.withIssuer(SecurityUtils.TOKEN_ISSUER)
 							.withIssuedAt(new Date())
@@ -61,6 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 							.withArrayClaim("roles", roles.toArray(new String[roles.size()]))
 							.withExpiresAt(expiration)
 							.sign(Algorithm.HMAC256(SecurityUtils.PRIVATE_SECRET));
+		// token is now created as pair.
 		response.addHeader(SecurityUtils.JWT_HEADER, jwt);
 	}
 	

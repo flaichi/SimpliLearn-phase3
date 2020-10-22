@@ -28,7 +28,7 @@ public class ShoesController {
 	/**
 	 * Gets the all shoes.
 	 * 
-	 * hit the following url in your browser: http;//localhost:8080/api/shoes
+	 * hit the following url in your browser: http;//localhost:8084/api/shoes
 	 *
 	 * @return the all shoes
 	 */

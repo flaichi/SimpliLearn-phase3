@@ -37,6 +37,7 @@ public class PurchaseController {
 	@Autowired
 	private ItemsPurchasedRepository ipRepository;
 	
+	// saving items purchased into repository
 	@PostMapping("/{customerId}/{itemId}")
 	public ItemsPurchased purchaseItem(@PathVariable Long customerId, @PathVariable Long itemId) {
 		final Customer customer = customerRepository.findById(customerId).orElse(null);
@@ -49,18 +50,21 @@ public class PurchaseController {
 		return ipRepository.save(itemsPurchased);
 	}
 	
+	// list  items purchased by customer Id from repository
 	@GetMapping("/by-user/{customerId}")
 	public List<ItemsPurchased> purchasedByCustomer(@PathVariable Long customerId){
 		final Customer customer = customerRepository.findById(customerId).orElse(null);
 		return ipRepository.findByCustomer(customer);
 	}
 	
+	// list  items purchased by item   Id from shoe repository
 	@GetMapping("/by-item/{itemId}")
 	public List<ItemsPurchased> purchasedByItem(@PathVariable Long itemId){
 		final Shoe shoe = shoeRepository.findById(itemId).orElse(null);
 		return ipRepository.findByShoe(shoe);
 	}
 	
+	// list  items purchased by Date interval  from shoe repository
 	@GetMapping("/by-dates/{startDate}/{endDate}")
 	public List<ItemsPurchased> purchasedByItem(@PathVariable String startDate,@PathVariable String endDate){
 		System.out.println(startDate);

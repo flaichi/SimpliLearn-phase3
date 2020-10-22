@@ -47,6 +47,7 @@ public class CustomerController {
 	 * @param id the id
 	 * @return the one Customer
 	 */
+	// get customer by ID
 	@GetMapping("/{id}")
 	public Optional<Customer> getOneCustomer(@PathVariable Long id){
 		return repository.findById(id);
@@ -64,6 +65,7 @@ public class CustomerController {
 		return repository.save(customer);
 	}
 	
+	// update the customer 
 	@PutMapping("/{id}")
 	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable Long id) {
 		customer.setId(id);
