@@ -17,6 +17,6 @@ public interface ItemsPurchasedRepository extends JpaRepository<ItemsPurchased, 
 	List<ItemsPurchased> findByShoe(Shoe shoe);
 	
 	List<ItemsPurchased> findByPurchasedDateBetween(LocalDateTime startDate, LocalDateTime endDate);
-	List<ItemsPurchased> findByPurchasedDateBetweenAndGender(LocalDateTime startDate, LocalDateTime endDate, String gender);
+	//List<ItemsPurchased> findByPurchasedDateBetweenAndGender(LocalDateTime startDate, LocalDateTime endDate, String gender);
 
 }

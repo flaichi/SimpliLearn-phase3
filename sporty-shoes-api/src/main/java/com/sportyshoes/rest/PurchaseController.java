@@ -17,6 +17,7 @@ import com.sportyshoes.entities.ItemsPurchased;
 import com.sportyshoes.entities.Shoe;
 import com.sportyshoes.entities.User;
 import com.sportyshoes.repositories.CustomerRepository;
+import com.sportyshoes.repositories.ItemsPurchasedDao;
 import com.sportyshoes.repositories.ItemsPurchasedRepository;
 import com.sportyshoes.repositories.ShoesRepository;
 import com.sportyshoes.repositories.UserRepository;
@@ -30,14 +31,17 @@ import com.sportyshoes.repositories.UserRepository;
 @RequestMapping("/api/purchase")
 public class PurchaseController {
 	
-	@Autowired
-	private CustomerRepository customerRepository;
+	
 	
 	@Autowired
 	private ShoesRepository shoeRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+
+	@Autowired
+	private ItemsPurchasedDao iPurchaseDao;
 
 	@Autowired
 	private ItemsPurchasedRepository ipRepository;
@@ -78,13 +82,22 @@ public class PurchaseController {
 		return ipRepository.findByPurchasedDateBetween(date1, date2);
 	}
 	
-	@GetMapping("/by-dates-category/{startDate}/{endDate}/{category}")
+	/*@GetMapping("/by-dates-category/{startDate}/{endDate}/{category}")
 	public List<ItemsPurchased> purchasedByItem(@PathVariable String startDate,@PathVariable String endDate, String category){
 		System.out.println(startDate);
 		final LocalDateTime date1 = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 		final LocalDateTime date2 = LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 		return ipRepository.findByPurchasedDateBetweenAndGender(date1, date2, category);
 	}
+	*/
+	@GetMapping("/by-dates/{startDate}/{endDate}/{category}")
+	public List<ItemsPurchased> purchasedByItem(@PathVariable String startDate,@PathVariable String endDate, String category){
+		System.out.println(startDate);
+		final LocalDateTime date1 = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		final LocalDateTime date2 = LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		return iPurchaseDao.searchByDatesAndCategory(date1, date2, category);
+	}
+	
 	
 	
 }
