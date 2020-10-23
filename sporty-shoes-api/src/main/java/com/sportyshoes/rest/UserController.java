@@ -30,6 +30,7 @@ public class UserController {
 	 */
 	@PostMapping("/register-user")
 	public User registerUser(@RequestBody UserForm userForm) {
+		System.out.println("username:"+userForm.getUsername()+"password"+ userForm.getPassword()+ "Confimration:"+userForm.getConfirmedPassword());
 		return service.saveUser(userForm.getUsername(), userForm.getPassword(), userForm.getConfirmedPassword());
 	}
 	
@@ -40,7 +41,9 @@ public class UserController {
 	 * @return the user
 	 */
 	@PostMapping("/register-admin")
-	public User registerAdmin(@RequestBody UserForm userForm) {
+	public User registerAdmin(@RequestBody UserForm userForm) 
+	{
+		
 		return service.saveAdmin(userForm.getUsername(), userForm.getPassword(), userForm.getConfirmedPassword());
 	}
 	

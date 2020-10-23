@@ -36,6 +36,6 @@ public class ItemsPurchased implements Serializable {
 	private LocalDateTime purchasedDate;
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id", name = "customer")
-	private Customer customer;
+	@JoinColumn(referencedColumnName = "id", name = "user")
+	private User user;
 }

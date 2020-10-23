@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sportyshoes.entities.Customer;
 import com.sportyshoes.entities.ItemsPurchased;
 import com.sportyshoes.entities.Shoe;
+import com.sportyshoes.entities.User;
 import com.sportyshoes.repositories.CustomerRepository;
 import com.sportyshoes.repositories.ItemsPurchasedRepository;
 import com.sportyshoes.repositories.ShoesRepository;
+import com.sportyshoes.repositories.UserRepository;
+
 
 
 /**
@@ -33,28 +36,30 @@ public class PurchaseController {
 	@Autowired
 	private ShoesRepository shoeRepository;
 	
-	
+	@Autowired
+	private UserRepository userRepository;
+
 	@Autowired
 	private ItemsPurchasedRepository ipRepository;
 	
 	// saving items purchased into repository
-	@PostMapping("/{customerId}/{itemId}")
-	public ItemsPurchased purchaseItem(@PathVariable Long customerId, @PathVariable Long itemId) {
-		final Customer customer = customerRepository.findById(customerId).orElse(null);
+	@PostMapping("/{userId}/{itemId}")
+	public ItemsPurchased purchaseItem(@PathVariable Long userId, @PathVariable Long itemId) {
+		final User user = userRepository.findById(userId).orElse(null);
 		final Shoe shoe = shoeRepository.findById(itemId).orElse(null);
 		final ItemsPurchased itemsPurchased = new ItemsPurchased();
 		itemsPurchased.setCode(UUID.randomUUID().toString());
-		itemsPurchased.setCustomer(customer);
+		itemsPurchased.setUser(user);
 		itemsPurchased.setShoe(shoe);
 		itemsPurchased.setPurchasedDate(LocalDateTime.now());
 		return ipRepository.save(itemsPurchased);
 	}
 	
 	// list  items purchased by customer Id from repository
-	@GetMapping("/by-user/{customerId}")
-	public List<ItemsPurchased> purchasedByCustomer(@PathVariable Long customerId){
-		final Customer customer = customerRepository.findById(customerId).orElse(null);
-		return ipRepository.findByCustomer(customer);
+	@GetMapping("/by-user/{userId}")
+	public List<ItemsPurchased> purchasedByCustomer(@PathVariable Long userId){
+		final User user = userRepository.findById(userId).orElse(null);
+		return ipRepository.findByUser(user);
 	}
 	
 	// list  items purchased by item   Id from shoe repository
@@ -72,4 +77,14 @@ public class PurchaseController {
 		final LocalDateTime date2 = LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 		return ipRepository.findByPurchasedDateBetween(date1, date2);
 	}
+	
+	@GetMapping("/by-dates-category/{startDate}/{endDate}/{category}")
+	public List<ItemsPurchased> purchasedByItem(@PathVariable String startDate,@PathVariable String endDate, String category){
+		System.out.println(startDate);
+		final LocalDateTime date1 = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		final LocalDateTime date2 = LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		return ipRepository.findByPurchasedDateBetweenAndGender(date1, date2, category);
+	}
+	
+	
 }
